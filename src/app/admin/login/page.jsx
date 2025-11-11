@@ -1,8 +1,59 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
 
 const LoginPage = () => {
+
+    const [formData,setFormData]=useState({
+        password:"",
+        email:""
+    })
+
+    const [errors, setErrors]=useState({})
+
+    const [event,setEvent]=useState('')
+
+
+    const [todo, setTodo]=useState(["movies','cooking", 'date', 'learning', 'google authenticator'])
+
+    // const 
+
+    const  handleChange=(e)=>{
+        const {name,value}=e.target
+        setFormData({...formData, 
+            [name]:value
+        })
+    }
+
+    const validateErrors=()=>{
+        const formErrors={}
+        if(!formData.email.trim()){
+            formErrors.email="Email is required"
+        }
+
+        if(!formData.password){
+            formErrors.password="PAssword is required"
+        }
+        setErrors(formErrors)
+        return Object.keys(formErrors).length==0
+    }
+    
+    const handleSumbit=(e)=>{
+        e.preventDefault()
+
+        if(validateErrors()){
+            // send user data to api
+            console.log("form submitted")
+        }
+        // console.log(e)
+
+        // how to handle array useState
+        // setTodo([...todo, event])
+        // console.log(todo)
+    }
+
+
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-50">
+    <form className="flex justify-center items-center h-screen bg-gray-50" onSubmit={handleSumbit}>
       <div className="bg-white p-10 rounded-2xl shadow-md w-[420px]">
         <h1 className="text-2xl font-semibold text-center mb-2">
           Welcome to BiaBook
@@ -12,7 +63,7 @@ const LoginPage = () => {
         </p>
 
         {/* Google Button */}
-        <button className="w-full flex items-center justify-center gap-2 border border-gray-300 rounded-lg py-3 font-medium hover:bg-gray-50 transition">
+        <button className="w-full flex items-center justify-center gap-2 border border-black  rounded-lg py-3 font-medium hover:bg-gray-50 transition">
           <img
             src="https://www.svgrepo.com/show/475656/google-color.svg"
             alt="Google"
@@ -30,20 +81,35 @@ const LoginPage = () => {
 
         {/* Email Input */}
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-1">
+          <label className="block text-sm font-medium mb-1 text-black">
             Email address
           </label>
           <input
+              name="email"
             type="email"
-            placeholder="Enter your email"
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="user@gmail.com"
+            className="w-full border border-black rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+          />
+          {errors.email && (<p className="text-red-500">{errors.email}</p>)}
+        </div>
+
+        {/* Password Input */}
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-1 text-black">
+           Password
+          </label>
+          <input
+          name="password"
+            type="password"
+            placeholder="Password@2025"
+            className="w-full border border-black rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
           />
         </div>
 
         {/* Disabled Email Button */}
         <button
-          disabled  
-          className="w-full bg-gray-100 text-gray-500 rounded-lg py-3 flex items-center justify-center gap-2 cursor-not-allowed"
+            
+          className="w-full bg-blue-400 cursor-pointer text-white rounded-lg py-3 flex items-center justify-center gap-2 "
 
         >
           <svg
@@ -75,7 +141,21 @@ const LoginPage = () => {
           .
         </p>
       </div>
-    </div>
+
+      <input type="text"  className="bg-green-600" onChange={(e)=>setEvent(e.target.value)}/>
+
+
+      <div>
+        <p>TO do</p>
+        {
+            todo.map((event)=>(
+                <li key={event} className="text-red-500">{event}</li>
+
+            ))
+        }
+       
+      </div>
+    </form>
   );
 };
 

@@ -11,6 +11,11 @@ const adminSchema= mongoose.Schema({
         unique:true,
     
     },
+    password:{
+        type:String,
+      
+    
+    },
     otp:{
         type:Number,
     }
