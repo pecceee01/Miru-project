@@ -86,7 +86,7 @@ export default function Signup() {
               type="submit"
               className="w-full bg-purple-500 text-white py-2 rounded hover:bg-purple-600 transition-colors"
             >
-              Sign Up as {role.charAt(0).toUpperCase() + role.slice(1)}
+              Sign Up as 
             </button>
           </form>
         )}
