@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from "react";
 
-const LoginPage = () => {
+const RegisterPage = () => {
 
     const [formData,setFormData]=useState({
         password:"",
@@ -43,7 +43,14 @@ const LoginPage = () => {
         if(validateErrors()){
             // send user data to api
             console.log("form submitted")
-            const res= await fetch(process.env.NEXT_PUBLIC_API_ENDPOINT)
+           
+            const res= await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/register`, {
+                medthod:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(formData)
+            })
         }
         // console.log(e)
 
@@ -170,4 +177,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
