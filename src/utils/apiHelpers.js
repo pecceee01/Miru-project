@@ -42,7 +42,66 @@ function sendOTPByEmail(email, otp) {
   catch(error){
     console.log(error)
   }
-}// Function to send OTP via email using nodemailer
+}
+
+// email template
+const otpTemplate = (otp) => `
+  <div style="font-family: Arial, sans-serif; background: #f5f7fa; padding: 20px;">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td align="center">
+          <table width="500" border="0" cellspacing="0" cellpadding="0" 
+            style="background: #ffffff; padding: 30px; border-radius: 10px;">
+            
+            <tr>
+              <td align="center">
+                <h2 style="color: #333; margin-bottom: 10px;">
+                   Verification Code
+                </h2>
+                <p style="color: #555; font-size: 15px;">
+                  Use the OTP below to complete your verification.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td align="center" style="padding: 20px 0;">
+                <div style="
+                  font-size: 32px;
+                  font-weight: bold;
+                  letter-spacing: 6px;
+                  color: #1a73e8;
+                ">
+                  ${otp}
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <p style="color: #555; font-size: 14px; line-height: 22px;">
+                  This code will expire in <strong>10 minutes</strong>.  
+                  If you did not request this code, please ignore this email.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td align="center" style="padding-top: 25px;">
+                <p style="font-size: 12px; color: #888;">
+                  © ${new Date().getFullYear()} Miruschool. All rights reserved.
+                </p>
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+`;
+
+// Function to send OTP via email using nodemailer
 export const sendOtpMail=(email, otp)=> {
   try{
     
@@ -65,7 +124,7 @@ export const sendOtpMail=(email, otp)=> {
       from: process.env.EMAIL_ADDRESS,
       to: email,
       subject: 'Verification Code for Registration',
-      text: `Your OTP (One-Time Password) for registration is: ${otp}`,
+     html: otpTemplate(otp), // send styled HTML
     };
   
     // Send the email
@@ -81,3 +140,4 @@ export const sendOtpMail=(email, otp)=> {
     console.log(error)
   }
 }
+

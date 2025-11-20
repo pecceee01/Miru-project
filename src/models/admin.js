@@ -28,7 +28,7 @@ const adminSchema= mongoose.Schema({
     },
     otpExpires:{
         type:Date,
-        default:null
+        default:Date.now()
     }
 
    
