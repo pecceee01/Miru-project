@@ -4,11 +4,13 @@ const adminSchema= mongoose.Schema({
     name:{
         type:String,
         required:true,
+        default:"admin"
         
     },
     email:{
         type:String,
         unique:true,
+        required:true
     
     },
     password:{
@@ -17,6 +19,19 @@ const adminSchema= mongoose.Schema({
     
     },
     otp:{
-        type:Number,
+        type:String,
+        required:true
+    },
+    emailVerified:{
+        type:Boolean,
+        default:false
+    },
+    otpExpires:{
+        type:Date,
+        default:null
     }
-})
+
+   
+},{timestamps:true})
+const Admin= mongoose.models.admin || mongoose.model('admin',adminSchema)
+export default Admin
