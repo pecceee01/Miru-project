@@ -27,10 +27,10 @@ export const POST= async(req)=>{
         otp:otp
     })
     if(!admin){
-        return Response.json(JSON.stringify({msg:"Trouble regsierting admin"}), {status:400})
+        return Response.json({msg:"Trouble regsierting admin"}, {status:400})
     }
         sendOtpMail(email,otp)
-        return Response.json(JSON.stringify({msg:"admin regisered"}), {status:201})
+        return Response.json({msg:"admin regisered"}, {status:201})
 
         
         // const admin= new Admin
@@ -39,7 +39,7 @@ export const POST= async(req)=>{
 
     catch(err){
         console.log(err.message)
-        return Response.json(JSON.stringify({msg:"Server Error"}), {status:500})
+        return Response.json({msg:"Server Error"}, {status:500})
 
     }
         

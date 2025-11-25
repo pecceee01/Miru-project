@@ -2,13 +2,14 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const RegisterPage = () => {
+const confirmOtp = () => {
   const router=useRouter()
 
     const [formData,setFormData]=useState({
-        password:"",
+        otp:"",
         email:""
     })
+    const a=90
 
     const [errors, setErrors]=useState({})
 
@@ -32,8 +33,8 @@ const RegisterPage = () => {
             formErrors.email="Email is required"
         }
 
-        if(!formData.password){
-            formErrors.password="PAssword is required"
+        if(!formData.otp){
+            formErrors.otp="PAssword is required"
         }
         setErrors(formErrors)
         return Object.keys(formErrors).length==0
@@ -45,7 +46,7 @@ const RegisterPage = () => {
         if(validateErrors()){
             // send user data to api
             console.log("form submitted")
-            const endpoint=`${process.env.NEXT_PUBLIC_API_ENDPOINT}/register`
+            const endpoint=`${process.env.NEXT_PUBLIC_API_ENDPOINT}/confirmOtp`
            
             const res= await fetch(endpoint, {
                 method:"POST",
@@ -57,11 +58,14 @@ const RegisterPage = () => {
 
             if(res.ok){
               // route user to confirm otp page
-              router.push('/confirmOtp')
+            //   router.push('/')
+            console.log(formData)
             }
+
+            
             
             else{
-              setErrors("Could not continue operation")
+              setErrors("Invalid Otp")
 
             }
         }
@@ -118,12 +122,12 @@ const RegisterPage = () => {
         {/* Password Input */}
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1 text-black">
-           Password
+           otp
           </label>
           <input
-          name="password"
-            type="password"
-            placeholder="Password@2025"
+          name="otp"
+            type="text"
+            placeholder="123455"
             className="w-full border border-black rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             required
             onChange={handleChange}
@@ -190,4 +194,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default confirmOtp;
